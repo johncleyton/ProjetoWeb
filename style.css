@@ -1,0 +1,890 @@
+/* ========== ESTILOS COMPLETOS ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+    background: #f7f7f7;
+}
+
+/* Header / Navbar */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #3a7a3b;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+}
+
+#navbar-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    height: 70px;
+    position: relative;
+}
+
+/* Logo */
+#logo {
+    width: auto;
+    max-height: 58px;
+    height: 58px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+#logo:hover {
+    transform: scale(1.04);
+}
+
+/* Botão hambúrguer */
+#hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    margin-left: auto;
+    z-index: 110;
+}
+
+#hamburger span {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    background: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Hambúrguer animado → X */
+#hamburger.open span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+}
+#hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+#hamburger.open span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* Lista de navegação */
+#navbar {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0 0 0 auto;
+    padding: 0;
+}
+
+/* Links de navegação */
+#navbar li a {
+    display: block;
+    color: rgba(255, 255, 255, 0.88);
+    padding: 0.45rem 1rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border-radius: 8px;
+    position: relative;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+#navbar li a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    transform: translateX(-50%) scaleX(0);
+    width: 60%;
+    height: 2px;
+    background: #ffd700;
+    border-radius: 2px;
+    transition: transform 0.25s ease;
+}
+
+#navbar li a:hover {
+    color: #ffffff;
+    background: transparent;
+}
+
+#navbar li a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Botão de login */
+.login-nav-btn {
+    margin-left: 0.5rem;
+    padding: 0;
+}
+
+.login-nav-btn a {
+    display: block;
+    color: #1a3d1b;
+    background: linear-gradient(135deg, #ffd700 0%, #f5b800 100%);
+    padding: 9px 22px;
+    text-decoration: none;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.35);
+}
+
+.login-nav-btn a::after {
+    display: none;
+}
+
+.login-nav-btn a:hover {
+    background: linear-gradient(135deg, #ffe84d 0%, #ffd700 100%);
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.5);
+    transform: translateY(-1px);
+    color: #1a3d1b;
+}
+
+/* ===== RESPONSIVO: menu hambúrguer ===== */
+@media (max-width: 768px) {
+    #hamburger {
+        display: flex;
+    }
+
+    #navbar {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: #2c6430;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease, padding 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    #navbar.nav-open {
+        max-height: 400px;
+        padding: 0.5rem 0;
+    }
+
+    #navbar li {
+        width: 100%;
+    }
+
+    #navbar li a {
+        padding: 0.85rem 1.5rem;
+        border-radius: 0;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    #navbar li a::after {
+        display: none;
+    }
+
+    .login-nav-btn {
+        margin: 0.5rem 1rem;
+    }
+
+    .login-nav-btn a {
+        text-align: center;
+        border-radius: 40px;
+    }
+}
+
+/* Hero banner */
+.hero-banner {
+    width: 100%;
+    max-height: 550px;
+    overflow: hidden;
+    display: block;
+}
+
+.hero-banner img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+/* Seção Sobre */
+.sobre-container {
+    background: #ffffff;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.sobre-titulo {
+    font-size: 2.2rem;
+    color: #2c5f2d;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+
+.sobre-texto {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #4a5b3e;
+}
+
+/* Cards de preços */
+.precos-section {
+    padding: 3rem 2rem;
+    background: #eef8ee;
+}
+
+.precos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.price-card {
+    background: white;
+    border-radius: 28px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+    border: 1px solid #ffe3b5;
+}
+
+.price-card:hover {
+    transform: translateY(-8px);
+}
+
+.price-icon {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+}
+
+.price-card h3 {
+    font-size: 1.8rem;
+    color: #2c5f2d;
+    margin-bottom: 1rem;
+}
+
+.price-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #c97e2c;
+    margin: 1rem 0;
+}
+
+.price-desc {
+    color: #6b5a3e;
+    font-size: 0.95rem;
+}
+
+/*.price-badge {
+    background: #ffd966;
+    display: inline-block;
+    padding: 0.2rem 1rem;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #2c5f2d;
+    margin-top: 0.8rem;
+}*/
+
+/* Seção de Pedido de Marmita */
+#marmita {
+    background-color: #fff3f3;
+    padding: 4rem 2rem;
+}
+
+.marmita-inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Layout do formulário de marmita */
+.marmita-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.marmita-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0e4c8;
+}
+
+.marmita-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.marmita-card-header h3 {
+    font-size: 1.1rem;
+    color: #2c5f2d;
+    margin: 0;
+}
+
+.marmita-card-header p {
+    font-size: 0.82rem;
+    color: #8b6942;
+    margin: 0;
+}
+
+.marmita-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.marmita-counter {
+    margin-left: auto;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #c97e2c;
+    background: #fff5e8;
+    border: 1.5px solid #f0d5a0;
+    border-radius: 20px;
+    padding: 0.2rem 0.75rem;
+    flex-shrink: 0;
+}
+
+.marmita-hint {
+    font-size: 0.78rem;
+    color: #c97e2c;
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+}
+
+/* Grid de chips */
+.chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 40px;
+    border: 1.5px solid #ddd;
+    background: #f9f9f9;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #4a3e2a;
+    transition: all 0.18s ease;
+    user-select: none;
+}
+
+.chip input {
+    display: none;
+}
+
+.chip:hover {
+    border-color: #2c5f2d;
+    background: #f0f7ee;
+    color: #2c5f2d;
+}
+
+.chip-selected {
+    border-color: #2c5f2d;
+    background: #e8f5e8;
+    color: #2c5f2d;
+    font-weight: 600;
+    box-shadow: 0 0 0 2px rgba(44, 95, 45, 0.15);
+}
+
+.chip-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Card de resumo */
+.marmita-resumo {
+    background: #fef7e8;
+    border-color: #f0d5a0;
+}
+
+.marmita-resumo h3 {
+    color: #2c5f2d;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+#resumoPedido {
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.resumo-linha {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.resumo-linha span {
+    font-weight: 600;
+    color: #4a3e2a;
+    min-width: 110px;
+    flex-shrink: 0;
+}
+
+.resumo-linha em {
+    color: #aaa;
+    font-style: italic;
+}
+
+.title-wrapper {
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #2c5f2d;
+    margin-bottom: 2rem;
+    text-align: center;
+    border-bottom: 3px solid #ffd700;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.bottom-wrapper {
+    font-size: 2.5rem;
+    color: #2c5f2d;
+    margin-bottom: 2rem;
+    text-align: center;
+    display: inline-block;
+    padding-top: 1rem;
+}
+
+.subtitle-badge {
+    background: #f8f1e0;
+    display: inline-block;
+    padding: 0.3rem 1.5rem;
+    border-radius: 40px;
+    margin-bottom: 2rem;
+}
+
+
+
+/* Formulário */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #4b3e2a;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: 60px;
+    border: 1px solid #d6c8ae;
+    background: #fffdf9;
+    font-size: 0.9rem;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #c97e2c;
+    box-shadow: 0 0 0 2px rgba(201, 126, 44, 0.2);
+}
+
+.form-group textarea {
+    border-radius: 16px;
+    resize: vertical;
+}
+
+/* Botões */
+.btn-acao {
+    background: #2c5f2d;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 60px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    transition: 0.2s;
+}
+
+.btn-acao:hover {
+    background: #1f4520;
+}
+
+.btn-destaque {
+    background: #c97e2c;
+}
+
+.btn-destaque:hover {
+    background: #a5631f;
+}
+
+.btn-disabled {
+    background: #9caf87;
+    cursor: not-allowed;
+}
+
+/* Resumo do pedido */
+.resumo-pedido {
+    background: white;
+    padding: 1rem;
+    border-radius: 16px;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+
+
+/* Modal de login */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fffaf0;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 32px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ffd966;
+    position: relative;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #8b6942;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #c97e2c;
+}
+
+.modal-content h2 {
+    color: #2c5f2d;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.modal-content .form-group {
+    margin-bottom: 1.2rem;
+}
+
+.modal-content input {
+    border-radius: 60px;
+}
+
+.btn-login-modal {
+    background: #c97e2c;
+    margin-top: 0.5rem;
+}
+
+.btn-login-modal:hover {
+    background: #a5631f;
+}
+
+.modal-info {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: #7c694a;
+}
+
+/* Seção Cardápio */
+#cardapio {
+    background-color: #fffce6;
+    padding: 4rem 2rem;
+}
+
+.cardapio-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Seção Cardápio - grid de cards */
+.cardapio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 200px));
+    gap: 1.5rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.menu-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    border: 1px solid #f0e4c8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(44, 95, 45, 0.15);
+}
+
+.menu-card-img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.menu-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover .menu-card-img-wrap img {
+    transform: scale(1.06);
+}
+
+.menu-card-name {
+    padding: 0.75rem 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2c5f2d;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* Seção Contato */
+#contato {
+    background-color: white;
+    padding: 4rem 2rem;
+}
+
+.contato-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.contact-card {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+}
+
+.contact-card h3 {
+    color: #2c5f2d;
+    margin-bottom: 1rem;
+}
+
+.contact-card p {
+    margin: 0.5rem 0;
+}
+
+.contact-small {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #6b5a3e;
+}
+
+/* Seção de currículo */
+.curriculo-section {
+    margin-top: 3rem;
+    background: #faf3e4;
+    border-radius: 32px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.curriculo-title {
+    color: #2c5f2d;
+    margin-bottom: 1rem;
+}
+
+.curriculo-desc {
+    margin-bottom: 1.5rem;
+}
+
+.curriculo-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.curriculo-mensagem {
+    margin-top: 10px;
+    font-size: 0.8rem;
+}
+
+/* Upload de currículo */
+.file-upload-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px dashed #c97e2c;
+    border-radius: 12px;
+    background: #fffdf5;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #6b5a3e;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.file-upload-label:hover {
+    border-color: #2c5f2d;
+    background: #f0f7ee;
+    color: #2c5f2d;
+}
+
+.file-upload-label.file-selected {
+    border-color: #2c5f2d;
+    background: #e8f5e8;
+    color: #2c5f2d;
+}
+
+.file-upload-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.file-upload-hint {
+    font-size: 0.75rem;
+    color: #aaa;
+    margin-top: 0.4rem;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    background-color: #2c5f2d;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.footer-text {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #navbar {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .login-nav-btn {
+        margin-left: 0;
+        padding: 0 0 10px 0;
+    }
+
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .sobre-titulo {
+        font-size: 1.8rem;
+    }
+
+    .price-card h3 {
+        font-size: 1.4rem;
+    }
+
+    .price-value {
+        font-size: 1.6rem;
+    }
+
+    .precos-section,
+    .acoes-section,
+    #cardapio,
+    #contato,
+    #marmita {
+        padding: 2rem 1rem;
+    }
+}

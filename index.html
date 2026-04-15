@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Estância d'Oliveira - Self Service e Eventos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/vetor.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <header>
+        <div id="navbar-wrapper">
+            <img src="images/vetor.svg" id="logo" alt="Logo Estância d'Oliveira">
+            <button id="hamburger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="navbar">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#cardapio" class="nav-link">Cardápio</a></li>
+                <li><a href="#marmita" class="nav-link">Marmita</a></li>
+                <li><a href="#contato" class="nav-link">Contato</a></li>
+                <li class="login-nav-btn"><a href="#" id="abrirModalBtn">Fazer Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Modal de Login (popup) -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="fecharModalBtn">&times;</span>
+            <h2>Acesso Cliente</h2>
+            <form id="modalLoginForm">
+                <div class="form-group">
+                    <label>E-mail ou CPF</label>
+                    <input type="email" id="modalEmail" placeholder="exemplo@estancia.com">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="modalSenha" placeholder="••••••">
+                </div>
+                <button type="button" class="btn-acao btn-login-modal" id="btnModalLogin">Entrar</button>
+                <p class="modal-info">Área demonstrativa — nenhum dado é armazenado</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="hero-banner">
+        <img src="images/visao-frontal.jpg" alt="Fachada Estância d'Oliveira">
+    </div>
+
+    <!-- Sobre o Restaurante -->
+    <div class="sobre-container" id="home">
+        <h2 class="sobre-titulo"><b>Sobre a Estância d'Oliveira</b></h2>
+        <p class="sobre-texto">
+            Desde 2009 trazendo uma mistura da culinária portuguesa com a
+            culinária brasileira. Trazemos, por meio de um estilo self-service
+            de alimentação, um cardápio extremamente variado de saladas, pratos
+            quentes e sobremesas. A opção perfeita para um almoço rápido ou até
+            mesmo a comemoração de um evento em amigos e familiares, cada
+            experiência será única aqui na Estância d'Oliveira.
+        </p>
+    </div>
+
+    <!-- 4 Cards de preços -->
+    <div class="precos-section">
+        <div class="precos-grid">
+            <div class="price-card">
+                <div class="price-icon">📆</div>
+                <h3>Seg-Sex</h3>
+                <div class="price-value">R$ 39,99</div>
+                <p class="price-desc">
+                    Self-service completo à vontade (das 11h - 15h).
+                    Venha disfrutar de uma variedade de saladas, pratos quentes e
+                    sobremesa inclusa.
+                </p>
+            </div>
+            <div class="price-card">
+                <div class="price-icon">🌟</div>
+                <h3>Sábado</h3>
+                <div class="price-value">R$ 65,00</div>
+                <p class="price-desc">
+                    Self-service completo à vontade (das 11h - 15h).
+                    Venha desfrutar de um cardapio especial que possui salmão,
+                    camarão, rodízio de carnes nobres, além do clássico buffet
+                    com uma grande varieade de opções e sobremesa inclusa.
+                </p>
+            </div>
+            <div class="price-card">
+                <div class="price-icon">🌟</div>
+                <h3>Domingo</h3>
+                <div class="price-value">R$ 75,00</div>
+                <p class="price-desc">
+                    Self-service completo à vontade (das 11h - 15h).
+                    Venha desfrutar de um cardapio especial que possui salmão,
+                    camarão, rodízio de carnes nobres, além do clássico buffet
+                    com uma grande varieade de opções e sobremesa inclusa.
+                </p>
+            </div>
+            <div class="price-card">
+                <div class="price-icon">🍕</div>
+                <h3>Rodízio de Pizza</h3>
+                <div class="price-value">R$ 65,00</div>
+                <p class="price-desc">
+                    Rodízio de pizza durante sextas e sábados (das 18:30h - 22h).
+                    Aproveite um delicioso rodízio de mais de 20 pizzas diferentes
+                    (incluindo pizzas doces), mais um buffet variado para acompanhar
+                    as pizzas.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção Cardápio Self Service -->
+    <section id="cardapio">
+        <div class="cardapio-inner">
+            <div class="title-wrapper">
+                <h2 class="section-title">Self Service</h2>
+            </div>
+            <div class="cardapio-grid">
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/22.png">
+                    </div>
+                    <span class="menu-card-name">Saladas Variadas</span>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/2.png">
+                    </div>
+                    <span class="menu-card-name">Camarão à Paulista</span>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/3.png">
+                    </div>
+                    <span class="menu-card-name">Panceta à Pururuca</span>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/21.png">
+                    </div>
+                    <span class="menu-card-name">Salmão ao Molho Laranja</span>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/11.png">
+                    </div>
+                    <span class="menu-card-name">Filé Mignon à Parmegiana</span>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/9.png">
+                    </div>
+                    <span class="menu-card-name">Bacalhau à Gomes de Sá</span>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/1.png" alt="Moqueca">
+                    </div>
+                    <span class="menu-card-name">Moqueca</span>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/8.png">
+                    </div>
+                    <span class="menu-card-name">Bacalhau Frito</span>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/15.png">
+                    </div>
+                    <span class="menu-card-name">Pizza de Calabresa</span>
+                </div>
+                <div class="menu-card">
+                    <div class="menu-card-img-wrap">
+                        <img src="images/food/16.png">
+                    </div>
+                    <span class="menu-card-name">Pizza de Chocolate com Morango</span>
+                </div>
+            </div>
+            <div class="title-wrapper">
+                <h1 class="bottom-wrapper">... e muito mais!</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Pedido de Marmita -->
+    <section id="marmita">
+        <div class="marmita-inner">
+            <div class="title-wrapper">
+                <h2 class="section-title">Peça sua Marmita (R$ 24,00)</h2>
+            </div>
+
+            <div class="marmita-form">
+
+                <!-- Misturas / Proteínas -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <span class="marmita-icon">🥩</span>
+                        <div>
+                            <h3>Misturas</h3>
+                            <p>Escolha exatamente <strong>2</strong></p>
+                        </div>
+                        <span class="marmita-counter" id="contadorProteina">0/2</span>
+                    </div>
+                    <div class="chip-grid">
+                        <label class="chip"><input type="checkbox" class="proteina" value="Carne Bovina">Carne
+                            Bovina</label>
+                        <label class="chip"><input type="checkbox" class="proteina" value="Peixe">Peixe</label>
+                        <label class="chip"><input type="checkbox" class="proteina" value="Frango">Frango</label>
+                        <label class="chip"><input type="checkbox" class="proteina" value="Carne Suína">Carne
+                            Suína</label>
+                        <label class="chip"><input type="checkbox" class="proteina" value="Linguiça">Linguiça</label>
+                    </div>
+                    <p class="marmita-hint" id="msgProteina">Selecione 2 misturas.</p>
+                </div>
+
+                <!-- Feijão -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <span class="marmita-icon">🫘</span>
+                        <div>
+                            <h3>Feijão</h3>
+                            <p>Escolha um tipo</p>
+                        </div>
+                    </div>
+                    <div class="chip-grid">
+                        <label class="chip"><input type="radio" name="feijao" value="Feijão Normal">Normal</label>
+                        <label class="chip"><input type="radio" name="feijao" value="Feijão Temperado">Temperado</label>
+                        <label class="chip"><input type="radio" name="feijao" value="Sem feijão">Sem feijão</label>
+                    </div>
+                </div>
+
+                <!-- Acompanhamentos -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <span class="marmita-icon">🍚</span>
+                        <div>
+                            <h3>Acompanhamentos</h3>
+                            <p>Selecione os que desejar</p>
+                        </div>
+                    </div>
+                    <div class="chip-grid">
+                        <label class="chip"><input type="checkbox" class="acomp" value="Arroz">Arroz</label>
+                        <label class="chip"><input type="checkbox" class="acomp" value="Farofa">Farofa</label>
+                        <label class="chip"><input type="checkbox" class="acomp" value="Legumes">Legumes</label>
+                    </div>
+                </div>
+
+                <!-- Batata ou Massa -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <span class="marmita-icon">🍝</span>
+                        <div>
+                            <h3>Batata ou Massa</h3>
+                            <p>Escolha uma opção</p>
+                        </div>
+                    </div>
+                    <div class="chip-grid">
+                        <label class="chip"><input type="radio" name="carboidrato" value="Batata">Batata</label>
+                        <label class="chip"><input type="radio" name="carboidrato" value="Massa">Massa</label>
+                        <label class="chip"><input type="radio" name="carboidrato" value="Nenhum">Nenhum</label>
+                    </div>
+                </div>
+
+                <!-- Contato e Observações -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <span class="marmita-icon">📝</span>
+                        <div>
+                            <h3>Contato e Observações</h3>
+                            <p>Informações adicionais</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone para contato</label>
+                        <input type="text" id="telefoneMarmita" placeholder="(11) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label>Observações (opcional)</label>
+                        <textarea id="observacoesMarmita" rows="2"
+                            placeholder="Ex: Trocar legumes por mais uma porção de batata..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Resumo + Finalizar -->
+                <div class="marmita-card marmita-resumo">
+                    <h3>📋 Resumo do Pedido</h3>
+                    <div id="resumoPedido">Selecione suas opções acima.</div>
+                    <button class="btn-acao btn-destaque" id="btnFinalizarPedido">Finalizar Pedido</button>
+                    <p id="msgFinalizacao" class="curriculo-mensagem"></p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção Contato -->
+    <section id="contato">
+        <div class="contato-inner">
+            <h2 class="section-title">Contato</h2>
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h3>Endereço</h3>
+                    <p>Rua Bento de Arruda Camargo, 680</p>
+                    <p>Jardim Santana - Campinas, SP</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Telefone</h3>
+                    <p>(19) 3342-8859</p>
+                    <p>(19) 3342-8859 (WhatsApp)</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Horário de funcionamento</h3>
+                    <p>Segunda à Domingo: 11h - 15h</p>
+                    <p>Sexta e Sábado: 18h30 - 22h</p>
+                </div>
+            </div>
+
+            <!-- Formulário de currículo -->
+            <div class="curriculo-section">
+                <h3 class="curriculo-title">📌 Envie seu currículo</h3>
+                <p class="curriculo-desc">Faça parte do time Estância d'Oliveira! Preencha os dados abaixo.</p>
+                <div class="curriculo-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nome completo" id="curriculoContatoNome">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Telefone / E-mail" id="curriculoContatoEmail">
+                    </div>
+                    <div class="form-group">
+                        <select id="cargoContato">
+                            <option>Atendente / Garçom</option>
+                            <option>Cozinheiro(a)</option>
+                            <option>Auxiliar de cozinha</option>
+                            <option>Repositor</option>
+                            <option>Jovem Aprendiz</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Breve experiência profissional (opcional)" rows="3"
+                            id="curriculoExperiencia"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="file-upload-label" for="curriculoArquivo">
+                            <span class="file-upload-icon">📎</span>
+                            <span id="fileUploadText">Anexar currículo (PDF)</span>
+                        </label>
+                        <input type="file" id="curriculoArquivo" accept=".pdf" style="display:none">
+                        <p class="file-upload-hint">Formatos aceitos: PDF&bull; Máx. 5 MB</p>
+                    </div>
+                    <button class="btn-acao btn-destaque" id="btnCurriculoContato">Enviar candidatura</button>
+                    <p id="msgCurriculoContato" class="curriculo-mensagem"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Estância d'Oliveira - Desde 2009 trazendo experiências únicas | Self service, rodízio e eventos
+        </p>
+        <p class="footer-text">📍 Rua Bento de Arruda Camargo, 680 - Campinas, SP | 💻 Acompanhe nossas redes</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
