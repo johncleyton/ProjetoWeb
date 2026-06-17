@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Peça sua Marmita - Estância d'Oliveira</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Monte sua marmita personalizada na Estância d'Oliveira. Escolha suas misturas, acompanhamentos e receba no conforto da sua casa.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/vetor.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <header>
+        <div id="navbar-wrapper">
+            <a href="index.html"><img src="images/vetor.svg" id="logo" alt="Logo Estância d'Oliveira"></a>
+            <button id="hamburger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="navbar">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#cardapio" class="nav-link">Cardápio</a></li>
+                <li><a href="vinhos.html" class="nav-link">Vinhos</a></li>
+                <li><a href="marmita.html" class="nav-link active-page">Marmita</a></li>
+                <li><a href="index.html#contato" class="nav-link">Contato</a></li>
+                <li class="login-nav-btn"><a href="#" id="abrirModalBtn">Fazer Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="fecharModalBtn">&times;</span>
+            <h2>Acesso Cliente</h2>
+            <form id="modalLoginForm">
+                <div class="form-group">
+                    <label>E-mail ou CPF</label>
+                    <input type="email" id="modalEmail" placeholder="exemplo@estancia.com">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="modalSenha" placeholder="••••••">
+                </div>
+                <button type="button" class="btn-acao btn-login-modal" id="btnModalLogin">Entrar</button>
+                <p class="modal-info">Área demonstrativa — nenhum dado é armazenado</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Page Hero -->
+    <div class="page-hero page-hero-marmita">
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content">
+            <h1>Peça sua Marmita</h1>
+            <p>Monte sua refeição personalizada por apenas R$ 24,00</p>
+        </div>
+    </div>
+
+    <!-- Seção de Pedido de Marmita -->
+    <section id="marmita" class="marmita-page-section">
+        <div class="marmita-inner">
+            <div class="marmita-form">
+
+                <!-- Misturas / Proteínas -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <div>
+                            <h3>Misturas</h3>
+                            <p>Escolha exatamente <strong>2</strong></p>
+                        </div>
+                        <span class="marmita-counter" id="contadorProteina">0/2</span>
+                    </div>
+                    <div class="chip-grid">
+                        <label class="chip"><input type="checkbox" class="proteina" value="Carne Bovina">Carne
+                            Bovina</label>
+                        <label class="chip"><input type="checkbox" class="proteina" value="Peixe">Peixe</label>
+                        <label class="chip"><input type="checkbox" class="proteina" value="Frango">Frango</label>
+                        <label class="chip"><input type="checkbox" class="proteina" value="Carne Suína">Carne
+                            Suína</label>
+                        <label class="chip"><input type="checkbox" class="proteina" value="Linguiça">Linguiça</label>
+                    </div>
+                    <p class="marmita-hint" id="msgProteina">Selecione 2 misturas.</p>
+                </div>
+
+                <!-- Feijão -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <div>
+                            <h3>Feijão</h3>
+                            <p>Escolha um tipo</p>
+                        </div>
+                    </div>
+                    <div class="chip-grid">
+                        <label class="chip"><input type="radio" name="feijao" value="Feijão Normal">Normal</label>
+                        <label class="chip"><input type="radio" name="feijao" value="Feijão Temperado">Temperado</label>
+                        <label class="chip"><input type="radio" name="feijao" value="Sem feijão">Sem feijão</label>
+                    </div>
+                </div>
+
+                <!-- Acompanhamentos -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <div>
+                            <h3>Acompanhamentos</h3>
+                            <p>Selecione os que desejar</p>
+                        </div>
+                    </div>
+                    <div class="chip-grid">
+                        <label class="chip"><input type="checkbox" class="acomp" value="Arroz">Arroz</label>
+                        <label class="chip"><input type="checkbox" class="acomp" value="Farofa">Farofa</label>
+                        <label class="chip"><input type="checkbox" class="acomp" value="Legumes">Legumes</label>
+                    </div>
+                </div>
+
+                <!-- Batata ou Massa -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <div>
+                            <h3>Batata ou Massa</h3>
+                            <p>Escolha uma opção</p>
+                        </div>
+                    </div>
+                    <div class="chip-grid">
+                        <label class="chip"><input type="radio" name="carboidrato" value="Batata">Batata</label>
+                        <label class="chip"><input type="radio" name="carboidrato" value="Massa">Massa</label>
+                        <label class="chip"><input type="radio" name="carboidrato" value="Nenhum">Nenhum</label>
+                    </div>
+                </div>
+
+                <!-- Contato e Observações -->
+                <div class="marmita-card">
+                    <div class="marmita-card-header">
+                        <div>
+                            <h3>Contato e Observações</h3>
+                            <p>Informações adicionais</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone para contato</label>
+                        <input type="text" id="telefoneMarmita" placeholder="(11) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label>Observações (opcional)</label>
+                        <textarea id="observacoesMarmita" rows="2"
+                            placeholder="Ex: Trocar legumes por mais uma porção de batata..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Resumo + Finalizar -->
+                <div class="marmita-card marmita-resumo">
+                    <h3>Resumo do Pedido</h3>
+                    <div id="resumoPedido">Selecione suas opções acima.</div>
+                    <button class="btn-acao btn-destaque" id="btnFinalizarPedido">Finalizar Pedido</button>
+                    <p id="msgFinalizacao" class="curriculo-mensagem"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Estância d'Oliveira - Desde 2009 trazendo experiências únicas | Self service, rodízio e eventos</p>
+        <p class="footer-text">Rua Bento de Arruda Camargo, 680 - Campinas, SP | Acompanhe nossas redes</p>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="marmita.js"></script>
+</body>
+
+</html>

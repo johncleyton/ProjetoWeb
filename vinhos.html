@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Carta de Vinhos - Estância d'Oliveira</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carta de vinhos premium da Estância d'Oliveira. Seleção de tintos, brancos, rosés, espumantes e Porto para acompanhar sua refeição.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/vetor.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <header>
+        <div id="navbar-wrapper">
+            <a href="index.html"><img src="images/vetor.svg" id="logo" alt="Logo Estância d'Oliveira"></a>
+            <button id="hamburger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="navbar">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#cardapio" class="nav-link">Cardápio</a></li>
+                <li><a href="vinhos.html" class="nav-link active-page">Vinhos</a></li>
+                <li><a href="marmita.html" class="nav-link">Marmita</a></li>
+                <li><a href="index.html#contato" class="nav-link">Contato</a></li>
+                <li class="login-nav-btn"><a href="#" id="abrirModalBtn">Fazer Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="fecharModalBtn">&times;</span>
+            <h2>Acesso Cliente</h2>
+            <form id="modalLoginForm">
+                <div class="form-group">
+                    <label>E-mail ou CPF</label>
+                    <input type="email" id="modalEmail" placeholder="exemplo@estancia.com">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="modalSenha" placeholder="••••••">
+                </div>
+                <button type="button" class="btn-acao btn-login-modal" id="btnModalLogin">Entrar</button>
+                <p class="modal-info">Área demonstrativa — nenhum dado é armazenado</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Page Hero -->
+    <div class="page-hero page-hero-wine">
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content">
+            <h1>Carta de Vinhos</h1>
+            <p>Seleção premium para acompanhar sua refeição</p>
+        </div>
+    </div>
+
+    <!-- Carta de Vinhos -->
+    <section id="vinhos" class="vinhos-page-section">
+        <div class="vinhos-inner">
+            <div class="wine-filter-tabs" id="wineFilterTabs">
+                <button class="wine-filter-btn active" data-filter="todos">Todos</button>
+                <button class="wine-filter-btn" data-filter="tinto">Tintos</button>
+                <button class="wine-filter-btn" data-filter="branco">Brancos</button>
+                <button class="wine-filter-btn" data-filter="rose">Rosé</button>
+                <button class="wine-filter-btn" data-filter="espumante">Espumantes</button>
+                <button class="wine-filter-btn" data-filter="porto">Porto</button>
+            </div>
+
+            <!-- Botão Admin para Adicionar Vinho -->
+            <div id="addWineBtnWrapper" style="display: none; text-align: right; margin-bottom: 1.5rem;">
+                <button class="btn-acao btn-destaque" id="btnOpenAddWineModal">+ Adicionar Novo Vinho</button>
+            </div>
+
+            <div class="wine-grid" id="wineGrid">
+                <!-- Wine cards injetados via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Adicionar Vinho (Admin) -->
+    <div id="addWineModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeAddWineModal">&times;</span>
+            <h2>Cadastrar Novo Vinho</h2>
+            <form id="addWineForm">
+                <div class="form-group">
+                    <label>Nome do Vinho</label>
+                    <input type="text" id="newWineName" placeholder="Ex: Casillero del Diablo" required>
+                </div>
+                <div class="form-group">
+                    <label>Região / País</label>
+                    <input type="text" id="newWineRegion" placeholder="Ex: Valle Central, Chile" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select id="newWineType">
+                        <option value="tinto">Tinto</option>
+                        <option value="branco">Branco</option>
+                        <option value="rose">Rosé</option>
+                        <option value="espumante">Espumante</option>
+                        <option value="porto">Porto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preço (R$)</label>
+                    <input type="number" id="newWinePrice" step="0.01" placeholder="Ex: 150.00" required>
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="newWineDesc" rows="3" placeholder="Descrição do vinho..." required></textarea>
+                </div>
+                <button type="submit" class="btn-acao btn-destaque" style="width: 100%">Salvar Vinho</button>
+            </form>
+        </div>
+    </div>
+    <!-- Botão flutuante do carrinho -->
+    <button class="cart-float-btn hidden" id="cartFloatBtn" aria-label="Abrir carrinho">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+
+    <!-- Overlay do carrinho -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- Sidebar do carrinho -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-sidebar-header">
+            <h2>Carrinho</h2>
+            <button class="cart-close-btn" id="cartCloseBtn">✕</button>
+        </div>
+        <div class="cart-items-list" id="cartItemsList">
+            <div class="cart-empty-msg">
+                Seu carrinho está vazio.<br>Explore nossa carta de vinhos!
+            </div>
+        </div>
+        <div class="cart-sidebar-footer">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-value" id="cartTotalValue">R$ 0,00</span>
+            </div>
+            <button class="btn-checkout" id="btnCheckout" disabled>Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- Modal de Checkout -->
+    <div id="checkoutModal" class="checkout-modal">
+        <div class="checkout-modal-content">
+            <span class="close-modal" id="closeCheckoutModal">&times;</span>
+            <div id="checkoutFormView">
+                <h2>Finalizar Pedido</h2>
+                <div class="checkout-summary" id="checkoutSummary"></div>
+                <div class="checkout-form-group">
+                    <label for="checkoutNome">Nome completo</label>
+                    <input type="text" id="checkoutNome" placeholder="Seu nome">
+                </div>
+                <div class="checkout-form-group">
+                    <label for="checkoutTelefone">Telefone</label>
+                    <input type="text" id="checkoutTelefone" placeholder="(11) 99999-9999">
+                </div>
+                <div class="checkout-form-group">
+                    <label for="checkoutEntrega">Forma de retirada</label>
+                    <select id="checkoutEntrega">
+                        <option value="retirada">Retirar no restaurante</option>
+                        <option value="mesa">Entregar na mesa</option>
+                    </select>
+                </div>
+                <div class="checkout-form-group">
+                    <label for="checkoutMesa">Número da mesa (se aplicável)</label>
+                    <input type="text" id="checkoutMesa" placeholder="Ex: 12">
+                </div>
+                <button class="btn-confirm-order" id="btnConfirmOrder">Confirmar Pedido</button>
+            </div>
+            <div id="checkoutSuccessView" class="checkout-success" style="display:none;">
+                <h3>Pedido Confirmado!</h3>
+                <p>Obrigado pela sua compra! Seus vinhos serão preparados em instantes.</p>
+                <p style="margin-top:1rem; font-size:0.85rem; color: #757575;">Número do pedido: <strong id="orderNumber">#0000</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Estância d'Oliveira - Desde 2009 trazendo experiências únicas | Self service, rodízio e eventos</p>
+        <p class="footer-text">Rua Bento de Arruda Camargo, 680 - Campinas, SP | Acompanhe nossas redes</p>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="vinhos.js"></script>
+</body>
+
+</html>
