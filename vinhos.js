@@ -47,7 +47,7 @@ const defaultWineData = [
     },
     {
         id: 6,
-        name: "Porto Vintage Tawny 10 Anos",
+        name: "Porto Sage Tawny 10 Anos",
         region: "Porto, Portugal",
         type: "porto",
         price: 249.90,

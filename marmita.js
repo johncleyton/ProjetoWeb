@@ -93,6 +93,7 @@ document.getElementById('btnFinalizarPedido').addEventListener('click', function
     const protSel = [...proteinas].filter(p => p.checked);
     const feijaoEl = document.querySelector('input[name="feijao"]:checked');
     const carbEl = document.querySelector('input[name="carboidrato"]:checked');
+    const acompSel = [...acomps].filter(a => a.checked).map(a => a.value);
 
     if (protSel.length !== 2) {
         msgFin.style.color = '#a82d4e';
@@ -114,9 +115,34 @@ document.getElementById('btnFinalizarPedido').addEventListener('click', function
         msgFin.textContent = 'Informe um telefone para contato.';
         return;
     }
+
+    // Montar a mensagem do pedido para o WhatsApp
+    const misturas = protSel.map(p => p.value).join(', ');
+    const feijao = feijaoEl.value;
+    const carboidrato = carbEl.value;
+    const acompanhamentos = acompSel.length ? acompSel.join(', ') : 'Nenhum';
+    const obs = observacoes && observacoes.value.trim() ? observacoes.value.trim() : 'Nenhuma';
+    const telefone = telefoneInput.value.trim();
+
+    let mensagem = `🍱 *Pedido de Marmita - Estância d'Oliveira*\n\n`;
+    mensagem += `*Misturas:* ${misturas}\n`;
+    mensagem += `*Feijão:* ${feijao}\n`;
+    mensagem += `*Acompanhamentos:* ${acompanhamentos}\n`;
+    mensagem += `*Batata/Massa:* ${carboidrato}\n`;
+    mensagem += `*Observações:* ${obs}\n`;
+    mensagem += `*Telefone:* ${telefone}\n\n`;
+    mensagem += `*Valor:* R$ 24,00`;
+
+    // Número do WhatsApp do restaurante (19) 3342-8859
+    const numeroWhatsApp = '551933428859';
+    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+    // Feedback visual antes de redirecionar
     msgFin.style.color = '#2c5f2d';
-    msgFin.textContent = 'Pedido enviado! Logo entraremos em contato. Obrigado!';
-    setTimeout(() => msgFin.textContent = '', 5000);
+    msgFin.textContent = 'Redirecionando para o WhatsApp...';
+
+    // Abrir o WhatsApp em nova aba
+    window.open(urlWhatsApp, '_blank');
 });
 
 // ===== SCROLL REVEAL =====

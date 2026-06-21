@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const role = localStorage.getItem('userRole');
         if (role === 'admin') {
             abrirBtn.textContent = 'Sair (Admin)';
-            abrirBtn.style.color = 'var(--gold-600)';
+            abrirBtn.style.color = 'white';
         } else if (role === 'user') {
             abrirBtn.textContent = 'Sair (Cliente)';
-            abrirBtn.style.color = 'var(--gold-600)';
+            abrirBtn.style.color = 'white';
         } else {
             abrirBtn.textContent = 'Fazer Login';
             abrirBtn.style.color = ''; // reset
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     abrirBtn.addEventListener('click', function (e) {
         e.preventDefault();
         const role = localStorage.getItem('userRole');
-        
+
         // Se já está logado, funciona como botão de logout
         if (role) {
             if (confirm("Deseja realmente sair da sua conta?")) {
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnModalLogin.addEventListener('click', function () {
             const email = document.getElementById('modalEmail').value;
             const senha = document.getElementById('modalSenha').value;
-            
+
             if (email.trim() === "" || senha.trim() === "") {
                 alert("Por favor, preencha e-mail e senha (demonstração)");
             } else {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('userRole', 'user');
                     alert("Bem-vindo(a) à área do cliente!");
                 }
-                
+
                 modal.style.display = 'none';
                 document.getElementById('modalEmail').value = '';
                 document.getElementById('modalSenha').value = '';
