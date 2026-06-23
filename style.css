@@ -1591,6 +1591,8 @@ header {
     border: 1px solid var(--gray-200);
     position: relative;
     animation: modalSlideUp 0.3s var(--ease-out);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .close-modal {

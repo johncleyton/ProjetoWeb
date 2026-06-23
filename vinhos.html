@@ -112,6 +112,12 @@
                     <label>Descrição</label>
                     <textarea id="newWineDesc" rows="3" placeholder="Descrição do vinho..." required></textarea>
                 </div>
+                <div class="form-group">
+                    <label>Imagem do Vinho</label>
+                    <input type="file" id="newWineImage" accept="image/jpeg,image/png,image/webp" style="padding: 8px 0;">
+                    <img id="wineImagePreview" src="" alt="Preview" style="display:none; max-width:120px; max-height:120px; margin-top:8px; border-radius:8px; object-fit:cover; border:1px solid #ddd;">
+                    <small style="color:#888; display:block; margin-top:4px;">Opcional — JPG, PNG ou WebP (máx. 5MB)</small>
+                </div>
                 <button type="submit" class="btn-acao btn-destaque" style="width: 100%">Salvar Vinho</button>
             </form>
         </div>

@@ -1,84 +1,40 @@
-// ===== DADOS DOS VINHOS =====
-const defaultWineData = [
-    {
-        id: 1,
-        name: "Quinta do Douro Reserva",
-        region: "Douro, Portugal",
-        type: "tinto",
-        price: 189.90,
-        desc: "Tinto encorpado com notas de frutas vermelhas maduras, especiarias e um toque de carvalho. Ideal para carnes grelhadas.",
-        img: "images/wines/douro-red.png"
-    },
-    {
-        id: 2,
-        name: "Malbec Gran Reserva",
-        region: "Mendoza, Argentina",
-        type: "tinto",
-        price: 159.90,
-        desc: "Intenso e aveludado, com aromas de ameixa, chocolate amargo e um final longo e elegante.",
-        img: "images/wines/malbec.png"
-    },
-    {
-        id: 3,
-        name: "Cabernet Sauvignon Premium",
-        region: "Vale Central, Chile",
-        type: "tinto",
-        price: 129.90,
-        desc: "Clássico chileno com taninos firmes, notas de cassis e pimentão verde. Perfeito com massas ao molho vermelho.",
-        img: "images/wines/cabernet.png"
-    },
-    {
-        id: 4,
-        name: "Chardonnay Grand Cru",
-        region: "Borgonha, França",
-        type: "branco",
-        price: 219.90,
-        desc: "Elegante e mineral, com notas de frutas cítricas, manteiga e um toque floral. Harmoniza com peixes e frutos do mar.",
-        img: "images/wines/chardonnay.png"
-    },
-    {
-        id: 5,
-        name: "Rosé de Provence",
-        region: "Provence, França",
-        type: "rose",
-        price: 149.90,
-        desc: "Delicado e refrescante com tons de morango, pêssego e ervas finas. Ideal para tardes ensolaradas.",
-        img: "images/wines/rose.png"
-    },
-    {
-        id: 6,
-        name: "Porto Sage Tawny 10 Anos",
-        region: "Porto, Portugal",
-        type: "porto",
-        price: 249.90,
-        desc: "Vinho do Porto envelhecido com notas de caramelo, nozes e frutas secas. Perfeito como sobremesa.",
-        img: "images/wines/porto.png"
-    },
-    {
-        id: 7,
-        name: "Sauvignon Blanc Reserva",
-        region: "Marlborough, Nova Zelândia",
-        type: "branco",
-        price: 139.90,
-        desc: "Fresco e vibrante com aromas de maracujá, limão e notas herbáceas. Excelente com saladas.",
-        img: "images/wines/sauvignon.png"
-    },
-    {
-        id: 8,
-        name: "Espumante Brut Charmat",
-        region: "Serra Gaúcha, Brasil",
-        type: "espumante",
-        price: 89.90,
-        desc: "Espumante brasileiro com perlage fina, notas de maçã verde e torrada. Perfeito para celebrar.",
-        img: "images/wines/espumante.png"
-    }
-];
+// ===== DADOS DOS VINHOS (carregados do backend) =====
+let wineData = [];
 
-// Carregar vinhos do Local Storage ou usar os padrões
-let wineData = JSON.parse(localStorage.getItem('wineData'));
-if (!wineData || wineData.length === 0) {
-    wineData = defaultWineData;
-    localStorage.setItem('wineData', JSON.stringify(wineData));
+// Carregar vinhos do backend
+async function loadWines() {
+    try {
+        const res = await fetch(`${API_BASE}/wines`);
+        if (res.ok) {
+            wineData = await res.json();
+            wineData = wineData.map(w => ({ ...w, price: parseFloat(w.price) }));
+        } else {
+            console.error("Erro ao carregar vinhos do backend, usando fallback.");
+            loadFallbackWines();
+        }
+    } catch (error) {
+        console.error("Backend indisponível, usando fallback:", error);
+        loadFallbackWines();
+    }
+    renderWineCards();
+}
+
+function loadFallbackWines() {
+    const stored = JSON.parse(localStorage.getItem('wineData'));
+    if (stored && stored.length > 0) {
+        wineData = stored;
+    } else {
+        wineData = [
+            { id: 1, name: "Quinta do Douro Reserva", region: "Douro, Portugal", type: "tinto", price: 189.90, desc: "Tinto encorpado com notas de frutas vermelhas maduras, especiarias e um toque de carvalho. Ideal para carnes grelhadas.", img: "images/wines/douro-red.png" },
+            { id: 2, name: "Malbec Gran Reserva", region: "Mendoza, Argentina", type: "tinto", price: 159.90, desc: "Intenso e aveludado, com aromas de ameixa, chocolate amargo e um final longo e elegante.", img: "images/wines/malbec.png" },
+            { id: 3, name: "Cabernet Sauvignon Premium", region: "Vale Central, Chile", type: "tinto", price: 129.90, desc: "Clássico chileno com taninos firmes, notas de cassis e pimentão verde. Perfeito com massas ao molho vermelho.", img: "images/wines/cabernet.png" },
+            { id: 4, name: "Chardonnay Grand Cru", region: "Borgonha, França", type: "branco", price: 219.90, desc: "Elegante e mineral, com notas de frutas cítricas, manteiga e um toque floral. Harmoniza com peixes e frutos do mar.", img: "images/wines/chardonnay.png" },
+            { id: 5, name: "Rosé de Provence", region: "Provence, França", type: "rose", price: 149.90, desc: "Delicado e refrescante com tons de morango, pêssego e ervas finas. Ideal para tardes ensolaradas.", img: "images/wines/rose.png" },
+            { id: 6, name: "Porto Sage Tawny 10 Anos", region: "Porto, Portugal", type: "porto", price: 249.90, desc: "Vinho do Porto envelhecido com notas de caramelo, nozes e frutas secas. Perfeito como sobremesa.", img: "images/wines/porto.png" },
+            { id: 7, name: "Sauvignon Blanc Reserva", region: "Marlborough, Nova Zelândia", type: "branco", price: 139.90, desc: "Fresco e vibrante com aromas de maracujá, limão e notas herbáceas. Excelente com saladas.", img: "images/wines/sauvignon.png" },
+            { id: 8, name: "Espumante Brut Charmat", region: "Serra Gaúcha, Brasil", type: "espumante", price: 89.90, desc: "Espumante brasileiro com perlage fina, notas de maçã verde e torrada. Perfeito para celebrar.", img: "images/wines/espumante.png" }
+        ];
+    }
 }
 
 // ===== ESTADO DO CARRINHO =====
@@ -166,11 +122,13 @@ function renderWineCards(filter = 'todos') {
         grid.appendChild(card);
     });
 
-    // Trigger reveal animation
     requestAnimationFrame(() => {
         grid.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
     });
 }
+
+// Expor para auth.js
+window.renderWineCards = renderWineCards;
 
 function getBadgeLabel(type) {
     const labels = {
@@ -191,9 +149,6 @@ document.getElementById('wineFilterTabs').addEventListener('click', (e) => {
         renderWineCards(e.target.dataset.filter);
     }
 });
-
-// Initial render
-renderWineCards();
 
 // ===== CARRINHO =====
 const cartFloatBtn = document.getElementById('cartFloatBtn');
@@ -246,6 +201,9 @@ function getCurrentFilter() {
     const active = document.querySelector('.wine-filter-btn.active');
     return active ? active.dataset.filter : 'todos';
 }
+
+// Expor para auth.js
+window.getCurrentFilter = getCurrentFilter;
 
 function getCartTotal() {
     return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
@@ -346,21 +304,33 @@ window.addEventListener('click', (e) => {
     }
 });
 
-document.getElementById('btnConfirmOrder').addEventListener('click', () => {
+document.getElementById('btnConfirmOrder').addEventListener('click', async () => {
     const nome = document.getElementById('checkoutNome').value.trim();
     const telefone = document.getElementById('checkoutTelefone').value.trim();
+    const entrega = document.getElementById('checkoutEntrega').value;
+    const mesa = document.getElementById('checkoutMesa').value.trim();
 
-    if (!nome) {
-        alert('Por favor, informe seu nome.');
-        return;
-    }
-    if (!telefone) {
-        alert('Por favor, informe um telefone para contato.');
-        return;
-    }
+    if (!nome) { alert('Por favor, informe seu nome.'); return; }
+    if (!telefone) { alert('Por favor, informe um telefone para contato.'); return; }
 
-    const orderNum = '#' + Math.floor(1000 + Math.random() * 9000);
-    document.getElementById('orderNumber').textContent = orderNum;
+    try {
+        const res = await fetch(`${API_BASE}/orders/wine`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(window.getAuthHeaders ? window.getAuthHeaders() : {})
+            },
+            body: JSON.stringify({
+                items: cart.map(item => ({ id: item.id, name: item.name, price: item.price, qty: item.qty })),
+                nome, telefone, entrega, mesa
+            })
+        });
+        const data = await res.json();
+        document.getElementById('orderNumber').textContent = res.ok ? (data.orderNumber || '#0000') : '#' + Math.floor(1000 + Math.random() * 9000);
+    } catch (error) {
+        console.error("Backend indisponível:", error);
+        document.getElementById('orderNumber').textContent = '#' + Math.floor(1000 + Math.random() * 9000);
+    }
 
     checkoutFormView.style.display = 'none';
     checkoutSuccessView.style.display = 'block';
@@ -373,9 +343,7 @@ document.getElementById('btnConfirmOrder').addEventListener('click', () => {
     document.getElementById('checkoutTelefone').value = '';
     document.getElementById('checkoutMesa').value = '';
 
-    setTimeout(() => {
-        checkoutModal.style.display = 'none';
-    }, 4000);
+    setTimeout(() => { checkoutModal.style.display = 'none'; }, 4000);
 });
 
 // ===== ADMIN WINE MANAGEMENT =====
@@ -397,62 +365,102 @@ if (closeAddWineModal) {
 }
 
 window.addEventListener('click', (e) => {
-    if (e.target === addWineModal) {
-        addWineModal.style.display = 'none';
-    }
+    if (e.target === addWineModal) addWineModal.style.display = 'none';
 });
 
+// Preview da imagem selecionada
+const wineImageInput = document.getElementById('newWineImage');
+const wineImagePreview = document.getElementById('wineImagePreview');
+
+if (wineImageInput && wineImagePreview) {
+    wineImageInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                wineImagePreview.src = ev.target.result;
+                wineImagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            wineImagePreview.style.display = 'none';
+        }
+    });
+}
+
 if (addWineForm) {
-    addWineForm.addEventListener('submit', (e) => {
+    addWineForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const name = document.getElementById('newWineName').value.trim();
         const region = document.getElementById('newWineRegion').value.trim();
         const type = document.getElementById('newWineType').value;
-        const price = parseFloat(document.getElementById('newWinePrice').value);
+        const price = document.getElementById('newWinePrice').value;
         const desc = document.getElementById('newWineDesc').value.trim();
+        const imageFile = document.getElementById('newWineImage')?.files[0];
 
-        // Imagens genéricas baseadas no tipo de vinho para não quebrar o layout
-        const imageMap = {
-            'tinto': 'images/wines/cabernet.png',
-            'branco': 'images/wines/chardonnay.png',
-            'rose': 'images/wines/rose.png',
-            'espumante': 'images/wines/espumante.png',
-            'porto': 'images/wines/porto.png'
-        };
+        // Usar FormData para enviar multipart (com imagem)
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('region', region);
+        formData.append('type', type);
+        formData.append('price', price);
+        formData.append('desc', desc);
+        if (imageFile) {
+            formData.append('img', imageFile);
+        }
 
-        const newWine = {
-            id: Date.now(), // gera ID unico baseado em timestamp
-            name,
-            region,
-            type,
-            price,
-            desc,
-            img: imageMap[type] || imageMap['tinto']
-        };
+        try {
+            const res = await fetch(`${API_BASE}/wines`, {
+                method: 'POST',
+                headers: {
+                    ...(window.getAuthHeaders ? window.getAuthHeaders() : {})
+                    // NÃO incluir Content-Type — o browser define automaticamente com boundary para FormData
+                },
+                body: formData
+            });
 
-        wineData.push(newWine);
-        localStorage.setItem('wineData', JSON.stringify(wineData));
+            const data = await res.json();
 
-        renderWineCards(getCurrentFilter());
-        showToast("Novo vinho adicionado com sucesso!");
+            if (res.ok) {
+                await loadWines();
+                renderWineCards(getCurrentFilter());
+                showToast("Novo vinho adicionado com sucesso!");
+            } else {
+                alert(data.error || "Erro ao adicionar vinho.");
+            }
+        } catch (error) {
+            console.error("Erro ao adicionar vinho:", error);
+            alert("Erro ao conectar com o servidor.");
+        }
 
         addWineForm.reset();
+        if (wineImagePreview) wineImagePreview.style.display = 'none';
         addWineModal.style.display = 'none';
     });
 }
 
-function deleteWine(wineId) {
+async function deleteWine(wineId) {
     if (confirm("Tem certeza que deseja excluir este vinho do catálogo?")) {
-        wineData = wineData.filter(w => w.id !== wineId);
-        localStorage.setItem('wineData', JSON.stringify(wineData));
-        
-        // Se estava no carrinho, remove tambem
-        cart = cart.filter(c => c.id !== wineId);
-        updateCartUI();
-        
-        renderWineCards(getCurrentFilter());
-        showToast("Vinho removido com sucesso!");
+        try {
+            const res = await fetch(`${API_BASE}/wines/${wineId}`, {
+                method: 'DELETE',
+                headers: { ...(window.getAuthHeaders ? window.getAuthHeaders() : {}) }
+            });
+            const data = await res.json();
+            if (res.ok) {
+                await loadWines();
+                cart = cart.filter(c => c.id !== wineId);
+                updateCartUI();
+                renderWineCards(getCurrentFilter());
+                showToast("Vinho removido com sucesso!");
+            } else {
+                alert(data.error || "Erro ao remover vinho.");
+            }
+        } catch (error) {
+            console.error("Erro ao deletar vinho:", error);
+            alert("Erro ao conectar com o servidor.");
+        }
     }
 }
 
@@ -487,3 +495,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
 });
 initScrollReveal();
+
+// ===== INICIALIZAÇÃO =====
+loadWines();
