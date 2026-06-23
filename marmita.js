@@ -124,7 +124,7 @@ document.getElementById('btnFinalizarPedido').addEventListener('click', function
     const obs = observacoes && observacoes.value.trim() ? observacoes.value.trim() : 'Nenhuma';
     const telefone = telefoneInput.value.trim();
 
-    let mensagem = `🍱 *Pedido de Marmita - Estância d'Oliveira*\n\n`;
+    let mensagem = `*Pedido de Marmita - Estância d'Oliveira*\n\n`;
     mensagem += `*Misturas:* ${misturas}\n`;
     mensagem += `*Feijão:* ${feijao}\n`;
     mensagem += `*Acompanhamentos:* ${acompanhamentos}\n`;

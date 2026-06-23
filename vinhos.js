@@ -24,16 +24,7 @@ function loadFallbackWines() {
     if (stored && stored.length > 0) {
         wineData = stored;
     } else {
-        wineData = [
-            { id: 1, name: "Quinta do Douro Reserva", region: "Douro, Portugal", type: "tinto", price: 189.90, desc: "Tinto encorpado com notas de frutas vermelhas maduras, especiarias e um toque de carvalho. Ideal para carnes grelhadas.", img: "images/wines/douro-red.png" },
-            { id: 2, name: "Malbec Gran Reserva", region: "Mendoza, Argentina", type: "tinto", price: 159.90, desc: "Intenso e aveludado, com aromas de ameixa, chocolate amargo e um final longo e elegante.", img: "images/wines/malbec.png" },
-            { id: 3, name: "Cabernet Sauvignon Premium", region: "Vale Central, Chile", type: "tinto", price: 129.90, desc: "Clássico chileno com taninos firmes, notas de cassis e pimentão verde. Perfeito com massas ao molho vermelho.", img: "images/wines/cabernet.png" },
-            { id: 4, name: "Chardonnay Grand Cru", region: "Borgonha, França", type: "branco", price: 219.90, desc: "Elegante e mineral, com notas de frutas cítricas, manteiga e um toque floral. Harmoniza com peixes e frutos do mar.", img: "images/wines/chardonnay.png" },
-            { id: 5, name: "Rosé de Provence", region: "Provence, França", type: "rose", price: 149.90, desc: "Delicado e refrescante com tons de morango, pêssego e ervas finas. Ideal para tardes ensolaradas.", img: "images/wines/rose.png" },
-            { id: 6, name: "Porto Sage Tawny 10 Anos", region: "Porto, Portugal", type: "porto", price: 249.90, desc: "Vinho do Porto envelhecido com notas de caramelo, nozes e frutas secas. Perfeito como sobremesa.", img: "images/wines/porto.png" },
-            { id: 7, name: "Sauvignon Blanc Reserva", region: "Marlborough, Nova Zelândia", type: "branco", price: 139.90, desc: "Fresco e vibrante com aromas de maracujá, limão e notas herbáceas. Excelente com saladas.", img: "images/wines/sauvignon.png" },
-            { id: 8, name: "Espumante Brut Charmat", region: "Serra Gaúcha, Brasil", type: "espumante", price: 89.90, desc: "Espumante brasileiro com perlage fina, notas de maçã verde e torrada. Perfeito para celebrar.", img: "images/wines/espumante.png" }
-        ];
+        wineData = [];
     }
 }
 
@@ -271,6 +262,15 @@ const checkoutSuccessView = document.getElementById('checkoutSuccessView');
 
 btnCheckout.addEventListener('click', () => {
     if (cart.length === 0) return;
+
+    if (!localStorage.getItem('authToken')) {
+        alert("Você precisa estar logado na sua conta para finalizar uma compra.");
+        const loginModal = document.getElementById('loginModal');
+        if (loginModal) loginModal.style.display = 'flex';
+        closeCart();
+        return;
+    }
+
     closeCart();
 
     const summary = document.getElementById('checkoutSummary');
@@ -305,13 +305,10 @@ window.addEventListener('click', (e) => {
 });
 
 document.getElementById('btnConfirmOrder').addEventListener('click', async () => {
-    const nome = document.getElementById('checkoutNome').value.trim();
-    const telefone = document.getElementById('checkoutTelefone').value.trim();
+    const nome = localStorage.getItem('userName') || "Cliente Autenticado";
+    const telefone = "Não informado (via auth)";
     const entrega = document.getElementById('checkoutEntrega').value;
     const mesa = document.getElementById('checkoutMesa').value.trim();
-
-    if (!nome) { alert('Por favor, informe seu nome.'); return; }
-    if (!telefone) { alert('Por favor, informe um telefone para contato.'); return; }
 
     try {
         const res = await fetch(`${API_BASE}/orders/wine`, {
@@ -373,7 +370,7 @@ const wineImageInput = document.getElementById('newWineImage');
 const wineImagePreview = document.getElementById('wineImagePreview');
 
 if (wineImageInput && wineImagePreview) {
-    wineImageInput.addEventListener('change', (e) => {
+    newWineImage.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -469,7 +466,7 @@ function showToast(message) {
     document.querySelectorAll('.toast').forEach(t => t.remove());
     const toast = document.createElement('div');
     toast.className = 'toast';
-    toast.innerHTML = `<span>✓</span> ${message}`;
+    toast.innerHTML = `<span></span> ${message}`;
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 2800);
 }

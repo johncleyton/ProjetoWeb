@@ -33,12 +33,12 @@ async function createWineOrder(request, response) {
         const { items, nome, telefone, entrega, mesa } = request.body
 
         if (!items || items.length === 0) return response.status(400).json({ error: "Carrinho está vazio." })
-        if (!nome || !telefone) return response.status(400).json({ error: "Nome e telefone são obrigatórios." })
+        if (!nome) return response.status(400).json({ error: "O nome do cliente é obrigatório." })
 
         const total = items.reduce((sum, item) => sum + (item.price * item.qty), 0)
 
         console.log("===== NOVO PEDIDO DE VINHOS =====")
-        console.log(`Cliente: ${nome} | Telefone: ${telefone} | Entrega: ${entrega}`)
+        console.log(`Cliente: ${nome} | Entrega: ${entrega}`)
         if (mesa) console.log(`Mesa: ${mesa}`)
         items.forEach(item => console.log(`  - ${item.name} × ${item.qty} = R$ ${(item.price * item.qty).toFixed(2)}`))
         console.log(`Total: R$ ${total.toFixed(2)} | Data: ${new Date().toLocaleString('pt-BR')}`)

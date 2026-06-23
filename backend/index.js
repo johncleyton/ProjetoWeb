@@ -44,7 +44,7 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
     console.log(`
 ╔══════════════════════════════════════════════════╗
-║   🍽️  Estância d'Oliveira - Backend API          ║
+║       Estância d'Oliveira - Backend API          ║
 ║   Servidor rodando em http://localhost:${PORT}      ║
 ║   API disponível em /api                         ║
 ║   Uploads em /uploads                            ║
