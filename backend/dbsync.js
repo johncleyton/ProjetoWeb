@@ -33,7 +33,14 @@ if (!adminExists) {
     })
     console.log(`Admin padrão criado: ${adminEmail}`)
 } else {
-    console.log(`Admin já existe: ${adminEmail}`)
+    // Força o cargo para admin caso tenha sido sobrescrito no passado
+    if (adminExists.role !== 'admin') {
+        adminExists.role = 'admin'
+        await adminExists.save()
+        console.log(`Cargo do admin corrigido para 'admin': ${adminEmail}`)
+    } else {
+        console.log(`Admin já existe e está correto: ${adminEmail}`)
+    }
 }
 
 

@@ -79,6 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (addWineBtnWrapper) {
             addWineBtnWrapper.style.display = (role === 'admin') ? 'block' : 'none';
         }
+
+        // Mostra link de Currículos no navbar apenas para admin
+        const navCurriculosLink = document.getElementById('navCurriculosLink');
+        if (navCurriculosLink) {
+            navCurriculosLink.style.display = (role === 'admin') ? '' : 'none';
+        }
     }
 
     // ===== Botão Login/Logout =====
