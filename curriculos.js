@@ -153,11 +153,11 @@ async function deleteCurriculo(id) {
             await loadCurriculos();
         } else {
             const data = await res.json();
-            alert(data.error || 'Erro ao remover currículo.');
+            showToast(data.error || 'Erro ao remover currículo.', 'error');
         }
     } catch (error) {
         console.error('Erro ao deletar curriculo:', error);
-        alert('Erro ao conectar com o servidor.');
+        showToast(error.message || 'Erro ao conectar com o servidor.', 'error');
     }
 }
 

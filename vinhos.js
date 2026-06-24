@@ -266,7 +266,7 @@ btnCheckout.addEventListener('click', () => {
     if (cart.length === 0) return;
 
     if (!localStorage.getItem('authToken')) {
-        alert("Você precisa estar logado na sua conta para finalizar uma compra.");
+        showToast("Você precisa estar logado na sua conta para finalizar uma compra.", "error");
         const loginModal = document.getElementById('loginModal');
         if (loginModal) loginModal.style.display = 'flex';
         closeCart();
@@ -426,11 +426,11 @@ if (addWineForm) {
                 renderWineCards(getCurrentFilter());
                 showToast("Novo vinho adicionado com sucesso!");
             } else {
-                alert(data.error || "Erro ao adicionar vinho.");
+                showToast(data.error || "Erro ao adicionar vinho.", "error");
             }
         } catch (error) {
             console.error("Erro ao adicionar vinho:", error);
-            alert("Erro ao conectar com o servidor.");
+            showToast(error.message || "Erro ao conectar com o servidor.", "error");
         }
 
         addWineForm.reset();
@@ -454,11 +454,11 @@ async function deleteWine(wineId) {
                 renderWineCards(getCurrentFilter());
                 showToast("Vinho removido com sucesso!");
             } else {
-                alert(data.error || "Erro ao remover vinho.");
+                showToast(data.error || "Erro ao remover vinho.", "error");
             }
         } catch (error) {
             console.error("Erro ao deletar vinho:", error);
-            alert("Erro ao conectar com o servidor.");
+            showToast(error.message || "Erro ao conectar com o servidor.", "error");
         }
     }
 }
@@ -559,11 +559,11 @@ if (editWineForm) {
                 renderWineCards(getCurrentFilter());
                 showToast("Vinho atualizado com sucesso!");
             } else {
-                alert(data.error || "Erro ao atualizar vinho.");
+                showToast(data.error || "Erro ao atualizar vinho.", "error");
             }
         } catch (error) {
             console.error("Erro ao atualizar vinho:", error);
-            alert("Erro ao conectar com o servidor.");
+            showToast(error.message || "Erro ao conectar com o servidor.", "error");
         }
 
         editWineModal.style.display = 'none';

@@ -1,6 +1,25 @@
 // ===== AUTHENTICATION & LOGIN MODAL =====
 const API_BASE = 'http://localhost:3000/api';
 
+// ===== TOAST NOTIFICATION ======
+window.showToast = function(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `<span>${message}</span>`;
+    
+    if (type === 'error') {
+        toast.style.background = 'var(--red-600)';
+    }
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        if (document.body.contains(toast)) {
+            document.body.removeChild(toast);
+        }
+    }, 3000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('loginModal');
     const abrirBtn = document.getElementById('abrirModalBtn');
@@ -100,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.removeItem('userName');
                 updateAuthUI();
                 if (window.renderWineCards) window.renderWineCards(window.getCurrentFilter ? window.getCurrentFilter() : 'todos');
-                alert("Você saiu da conta.");
+                showToast("Você saiu da conta.");
             }
         } else {
             // Abrir modal
@@ -134,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const senha = document.getElementById('modalSenha').value.trim();
 
             if (!email || !senha) {
-                alert("Por favor, preencha e-mail e senha.");
+                showToast("Por favor, preencha e-mail e senha.", "error");
                 return;
             }
 
@@ -148,12 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         body: JSON.stringify({ email, password: senha, name: nome })
                     });
                     const data = await res.json();
-                    if (!res.ok) { alert(data.error || "Erro ao cadastrar."); return; }
+                    if (!res.ok) { showToast(data.error || "Erro ao cadastrar.", "error"); return; }
 
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('userRole', data.user.role);
                     localStorage.setItem('userName', data.user.name || '');
-                    alert("Conta criada com sucesso! Bem-vindo(a)!");
+                    showToast("Conta criada com sucesso! Bem-vindo(a)!");
                 } else {
                     // LOGIN via API
                     const res = await fetch(`${API_BASE}/auth/login`, {
@@ -162,13 +181,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         body: JSON.stringify({ email, password: senha })
                     });
                     const data = await res.json();
-                    if (!res.ok) { alert(data.error || "E-mail ou senha incorretos."); return; }
+                    if (!res.ok) { showToast(data.error || "E-mail ou senha incorretos.", "error"); return; }
 
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('userRole', data.user.role);
                     localStorage.setItem('userName', data.user.name || '');
 
-                    alert(data.user.role === 'admin' ? "Bem-vindo(a) Administrador!" : "Bem-vindo(a) à área do cliente!");
+                    showToast(data.user.role === 'admin' ? "Bem-vindo(a) Administrador!" : "Bem-vindo(a) à área do cliente!");
                 }
 
                 modal.style.display = 'none';
@@ -183,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error("Erro na autenticação:", error);
-                alert("Erro ao conectar com o servidor. Verifique se o backend está rodando.");
+                showToast(error.message || "Erro ao conectar com o servidor.", "error");
             }
         });
     }
