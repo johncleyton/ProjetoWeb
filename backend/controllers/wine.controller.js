@@ -1,4 +1,5 @@
 import Wine from "../models/wine.model.js"
+import { uploadToMinio, deleteFromMinio } from "../media/minio.client.js"
 
 // ===== LISTAR TODOS =====
 async function getAll(request, response) {
@@ -11,16 +12,16 @@ async function getAll(request, response) {
     }
 }
 
-// ===== CRIAR (ADMIN) — com upload de imagem =====
+// ===== CRIAR (ADMIN) — com upload de imagem via MinIO =====
 async function create(request, response) {
     try {
         const { name, region, type, price, desc } = request.body
 
         if (!name || !region || !type || !price || !desc) {
-            return response.status(400).json({ error: "Todos os campos são obrigatórios." })
+            return response.status(400).json({ error: "Todos os campos sao obrigatorios." })
         }
 
-        // Imagem: se enviou arquivo via multer, usa o path; senão usa fallback por tipo
+        // Fallback: imagem padrao por tipo caso nenhuma imagem seja enviada
         const imageMap = {
             'tinto': 'images/wines/cabernet.png',
             'branco': 'images/wines/chardonnay.png',
@@ -31,8 +32,8 @@ async function create(request, response) {
 
         let imgPath
         if (request.file) {
-            // Multer salvou o arquivo — retorna caminho relativo para o frontend
-            imgPath = 'uploads/wines/' + request.file.filename
+            // Multer segurou o arquivo na memoria — envia para o MinIO
+            imgPath = await uploadToMinio(request.file.buffer, request.file.originalname, request.file.mimetype)
         } else {
             imgPath = imageMap[type] || imageMap['tinto']
         }
@@ -58,11 +59,15 @@ async function update(request, response) {
     try {
         const { id } = request.params
         const wine = await Wine.findByPk(id)
-        if (!wine) return response.status(404).json({ error: "Vinho não encontrado." })
+        if (!wine) return response.status(404).json({ error: "Vinho nao encontrado." })
 
-        // Se enviou nova imagem, atualiza
+        // Se enviou nova imagem, faz upload para o MinIO e remove a antiga
         if (request.file) {
-            request.body.img = 'uploads/wines/' + request.file.filename
+            // Remove a imagem antiga do MinIO (se existir)
+            if (wine.img && wine.img.includes('minio') || wine.img && wine.img.includes(':9000')) {
+                await deleteFromMinio(wine.img)
+            }
+            request.body.img = await uploadToMinio(request.file.buffer, request.file.originalname, request.file.mimetype)
         }
 
         await wine.update(request.body)
@@ -78,7 +83,12 @@ async function remove(request, response) {
     try {
         const { id } = request.params
         const wine = await Wine.findByPk(id)
-        if (!wine) return response.status(404).json({ error: "Vinho não encontrado." })
+        if (!wine) return response.status(404).json({ error: "Vinho nao encontrado." })
+
+        // Remove a imagem do MinIO antes de apagar o registro
+        if (wine.img && (wine.img.includes('minio') || wine.img.includes(':9000'))) {
+            await deleteFromMinio(wine.img)
+        }
 
         await wine.destroy()
         return response.status(200).json({ message: "Vinho removido com sucesso!" })

@@ -76,6 +76,7 @@ function renderWineCards(filter = 'todos') {
         const cartItem = cart.find(c => c.id === wine.id);
         const qty = cartItem ? cartItem.qty : 0;
 
+        const adminEditBtn = role === 'admin' ? `<button class="wine-card-edit" onclick="openEditWine(${wine.id})" title="Editar Vinho">Editar</button>` : '';
         const adminDeleteBtn = role === 'admin' ? `<button class="wine-card-delete" onclick="deleteWine(${wine.id})" title="Remover Vinho">Excluir</button>` : '';
 
         const card = document.createElement('div');
@@ -83,6 +84,7 @@ function renderWineCards(filter = 'todos') {
         card.style.animationDelay = `${i * 0.08}s`;
         card.innerHTML = `
             <span class="wine-card-badge ${wine.type}">${getBadgeLabel(wine.type)}</span>
+            ${adminEditBtn}
             ${adminDeleteBtn}
             <div class="wine-card-img-wrap">
                 <img src="${wine.img}" alt="${wine.name}" loading="lazy">
@@ -459,6 +461,113 @@ async function deleteWine(wineId) {
             alert("Erro ao conectar com o servidor.");
         }
     }
+}
+
+// ===== ADMIN EDIT WINE =====
+const editWineModal = document.getElementById('editWineModal');
+const closeEditWineModalBtn = document.getElementById('closeEditWineModal');
+const editWineForm = document.getElementById('editWineForm');
+const editWineImageInput = document.getElementById('editWineImage');
+const editWineImagePreview = document.getElementById('editWineImagePreview');
+
+function openEditWine(wineId) {
+    const wine = wineData.find(w => w.id === wineId);
+    if (!wine) return;
+
+    document.getElementById('editWineId').value = wine.id;
+    document.getElementById('editWineName').value = wine.name;
+    document.getElementById('editWineRegion').value = wine.region;
+    document.getElementById('editWineType').value = wine.type;
+    document.getElementById('editWinePrice').value = wine.price;
+    document.getElementById('editWineDesc').value = wine.desc;
+
+    const currentImg = document.getElementById('editWineCurrentImg');
+    currentImg.src = wine.img;
+    currentImg.style.display = 'block';
+
+    // Reset file input and preview
+    if (editWineImageInput) editWineImageInput.value = '';
+    if (editWineImagePreview) editWineImagePreview.style.display = 'none';
+
+    if (editWineModal) editWineModal.style.display = 'flex';
+}
+
+// Preview da nova imagem selecionada
+if (editWineImageInput && editWineImagePreview) {
+    editWineImageInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                editWineImagePreview.src = ev.target.result;
+                editWineImagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            editWineImagePreview.style.display = 'none';
+        }
+    });
+}
+
+// Fechar modal de edição
+if (closeEditWineModalBtn) {
+    closeEditWineModalBtn.addEventListener('click', () => {
+        if (editWineModal) editWineModal.style.display = 'none';
+    });
+}
+
+window.addEventListener('click', (e) => {
+    if (e.target === editWineModal) editWineModal.style.display = 'none';
+});
+
+// Submeter edição
+if (editWineForm) {
+    editWineForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const wineId = document.getElementById('editWineId').value;
+        const name = document.getElementById('editWineName').value.trim();
+        const region = document.getElementById('editWineRegion').value.trim();
+        const type = document.getElementById('editWineType').value;
+        const price = document.getElementById('editWinePrice').value;
+        const desc = document.getElementById('editWineDesc').value.trim();
+        const imageFile = document.getElementById('editWineImage')?.files[0];
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('region', region);
+        formData.append('type', type);
+        formData.append('price', price);
+        formData.append('desc', desc);
+        if (imageFile) {
+            formData.append('img', imageFile);
+        }
+
+        try {
+            const res = await fetch(`${API_BASE}/wines/${wineId}`, {
+                method: 'PUT',
+                headers: {
+                    ...(window.getAuthHeaders ? window.getAuthHeaders() : {})
+                },
+                body: formData
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                await loadWines();
+                renderWineCards(getCurrentFilter());
+                showToast("Vinho atualizado com sucesso!");
+            } else {
+                alert(data.error || "Erro ao atualizar vinho.");
+            }
+        } catch (error) {
+            console.error("Erro ao atualizar vinho:", error);
+            alert("Erro ao conectar com o servidor.");
+        }
+
+        editWineModal.style.display = 'none';
+    });
 }
 
 // ===== TOASTS =====

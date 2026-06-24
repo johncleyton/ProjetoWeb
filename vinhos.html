@@ -122,6 +122,53 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal Editar Vinho (Admin) -->
+    <div id="editWineModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeEditWineModal">&times;</span>
+            <h2>Editar Vinho</h2>
+            <form id="editWineForm">
+                <input type="hidden" id="editWineId">
+                <div class="form-group">
+                    <label>Nome do Vinho</label>
+                    <input type="text" id="editWineName" placeholder="Ex: Casillero del Diablo" required>
+                </div>
+                <div class="form-group">
+                    <label>Região / País</label>
+                    <input type="text" id="editWineRegion" placeholder="Ex: Valle Central, Chile" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select id="editWineType">
+                        <option value="tinto">Tinto</option>
+                        <option value="branco">Branco</option>
+                        <option value="rose">Rosé</option>
+                        <option value="espumante">Espumante</option>
+                        <option value="porto">Porto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preço (R$)</label>
+                    <input type="number" id="editWinePrice" step="0.01" placeholder="Ex: 150.00" required>
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="editWineDesc" rows="3" placeholder="Descrição do vinho..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Imagem atual</label>
+                    <img id="editWineCurrentImg" src="" alt="Imagem atual" style="max-width:120px; max-height:120px; border-radius:8px; object-fit:cover; border:1px solid #ddd; display:block; margin-bottom:8px;">
+                    <label>Trocar imagem (opcional)</label>
+                    <input type="file" id="editWineImage" accept="image/jpeg,image/png,image/webp" style="padding: 8px 0;">
+                    <img id="editWineImagePreview" src="" alt="Preview" style="display:none; max-width:120px; max-height:120px; margin-top:8px; border-radius:8px; object-fit:cover; border:1px solid #ddd;">
+                    <small style="color:#888; display:block; margin-top:4px;">JPG, PNG ou WebP (máx. 5MB). Deixe vazio para manter a imagem atual.</small>
+                </div>
+                <button type="submit" class="btn-acao btn-destaque" style="width: 100%">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Botão flutuante do carrinho -->
     <button class="cart-float-btn hidden" id="cartFloatBtn" aria-label="Abrir carrinho">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

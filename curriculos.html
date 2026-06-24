@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Currículos - Painel Admin | Estância d'Oliveira</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Painel administrativo para gerenciar currículos recebidos na Estância d'Oliveira.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/vetor.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <header>
+        <div id="navbar-wrapper">
+            <a href="index.html"><img src="images/vetor.svg" id="logo" alt="Logo Estância d'Oliveira"></a>
+            <button id="hamburger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="navbar">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#cardapio" class="nav-link">Cardápio</a></li>
+                <li><a href="vinhos.html" class="nav-link">Vinhos</a></li>
+                <li><a href="marmita.html" class="nav-link">Marmita</a></li>
+                <li><a href="index.html#contato" class="nav-link">Contato</a></li>
+                <li id="navCurriculosLink" style="display:none;"><a href="curriculos.html" class="nav-link active-page">Currículos</a></li>
+                <li class="login-nav-btn"><a href="#" id="abrirModalBtn">Fazer Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="fecharModalBtn">&times;</span>
+            <h2>Acesso Cliente</h2>
+            <form id="modalLoginForm">
+                <div class="form-group">
+                    <label>E-mail ou CPF</label>
+                    <input type="email" id="modalEmail" placeholder="exemplo@estancia.com">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="modalSenha" placeholder="••••••">
+                </div>
+                <button type="button" class="btn-acao btn-login-modal" id="btnModalLogin">Entrar</button>
+                <p class="modal-info">Área demonstrativa — nenhum dado é armazenado</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Page Hero -->
+    <div class="page-hero page-hero-admin">
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content">
+            <h1>Painel de Currículos</h1>
+            <p>Gerencie as candidaturas recebidas</p>
+        </div>
+    </div>
+
+    <!-- Admin Content -->
+    <section class="curriculos-admin-section">
+        <div class="curriculos-admin-inner">
+
+            <!-- Access denied message (non-admin) -->
+            <div id="curriculosAccessDenied" class="curriculos-access-denied">
+                <div class="access-denied-icon">🔒</div>
+                <h2>Acesso Restrito</h2>
+                <p>Esta página é exclusiva para administradores. Faça login com uma conta admin para acessar.</p>
+            </div>
+
+            <!-- Admin panel (hidden until admin logs in) -->
+            <div id="curriculosAdminPanel" style="display: none;">
+                <!-- Stats bar -->
+                <div class="curriculos-stats">
+                    <div class="curriculos-stat-card">
+                        <span class="stat-number" id="totalCurriculos">0</span>
+                        <span class="stat-label">Total de Currículos</span>
+                    </div>
+                    <div class="curriculos-stat-card">
+                        <span class="stat-number" id="totalHoje">0</span>
+                        <span class="stat-label">Recebidos Hoje</span>
+                    </div>
+                </div>
+
+                <!-- Filter by cargo -->
+                <div class="curriculos-filter-bar">
+                    <label for="filterCargo">Filtrar por cargo:</label>
+                    <select id="filterCargo">
+                        <option value="todos">Todos</option>
+                        <option value="Atendente / Garçom">Atendente / Garçom</option>
+                        <option value="Cozinheiro(a)">Cozinheiro(a)</option>
+                        <option value="Auxiliar de cozinha">Auxiliar de cozinha</option>
+                        <option value="Repositor">Repositor</option>
+                        <option value="Jovem Aprendiz">Jovem Aprendiz</option>
+                    </select>
+                    <button class="btn-acao btn-refresh" id="btnRefreshCurriculos">↻ Atualizar</button>
+                </div>
+
+                <!-- Curriculos list -->
+                <div class="curriculos-list" id="curriculosList">
+                    <div class="curriculos-loading">Carregando currículos...</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Estância d'Oliveira - Desde 2009 trazendo experiências únicas | Self service, rodízio e eventos</p>
+        <p class="footer-text">Rua Bento de Arruda Camargo, 680 - Campinas, SP | Acompanhe nossas redes</p>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="curriculos.js"></script>
+</body>
+
+</html>

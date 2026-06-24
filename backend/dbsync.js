@@ -1,5 +1,6 @@
 import User from "./models/user.model.js"
 import Wine from "./models/wine.model.js"
+import Curriculum from "./models/curriculum.model.js"
 import bcrypt from "bcryptjs"
 import dotenv from "dotenv"
 
@@ -12,6 +13,9 @@ console.log("Tabela 'users' sincronizada.")
 
 await Wine.sync({ alter: true })
 console.log("Tabela 'wines' sincronizada.")
+
+await Curriculum.sync({ alter: true })
+console.log("Tabela 'curriculums' sincronizada.")
 
 // ===== SEED: Admin padrão =====
 const adminEmail = process.env.ADMIN_EMAIL || "admin@estancia.com"
